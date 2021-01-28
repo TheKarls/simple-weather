@@ -30,10 +30,6 @@ export default class Main extends Component {
         }
     }
 
-    test = () => {
-        console.log("leh")
-    }
-
     render() {
 
         return (

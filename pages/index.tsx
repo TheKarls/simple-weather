@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import type { NextPage } from 'next'
 import Head, { defaultHead } from 'next/head'
 import Input from '../src/components/Input/Input'
@@ -9,7 +9,7 @@ import OtherDaysCards from '../src/components/OtherDayCards/OtherDaysCards'
 export default function Index() {
     // STATE
     const [city, setCity] = useState('')
-    const [weatherData, setWeatherData] = useState<Object | void>({})
+    const weatherData = useRef<Object | void>({})
 
     const getCity = (newCity: string) => {
         setCity(newCity)
@@ -26,7 +26,7 @@ export default function Index() {
                 console.clear()
         })
         .then((response) => {
-            // setWeatherData(response)
+            weatherData.current = response
             console.log(response)
         })
 
@@ -36,7 +36,7 @@ export default function Index() {
             style={{ display: 'flex', flexDirection: 'column' }}
         >
             <Input getCity={getCity} />
-            <Weather weatherData={weatherData} />
+            <Weather weatherData={weatherData.current} />
             <OtherDaysCards />
         </div>
     )
